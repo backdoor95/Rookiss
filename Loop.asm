@@ -7,7 +7,7 @@ main:
     
     ;write your code here
     
-    ;반복문 (while, for)
+    ;반복문 (while, for, do-while)
     ;특정 조건을 만족할 때까지 반복해서 실행~
     
     ;ex) Hello World를 10번 출력해야 한다면?
