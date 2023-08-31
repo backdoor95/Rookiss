@@ -24,6 +24,8 @@ main:
     pop rbx
     pop rcx
     
+    push rax
+    push rbx
     push 1
     push 2
     call MAX ; 점프와 콜의 차이점은 return 의 여부
@@ -34,6 +36,10 @@ main:
     ; 위에서 push 2번 했으니 
     ; 1. pop 을 2번 하거나
     ; 2. add rsp, 16을 해줘야함. [2칸 복원]
+    pop rbx
+    pop rax
+    
+    
     
     xor rax, rax
     ret
@@ -58,7 +64,7 @@ L1:
     ; pop rbp를 통해서 bp값을 복원
     
     ;리턴을 하게 되는데 어떻게 리턴할까?
-    ; ip 에 내가 실행하고 있는 위치를 저장해두고 있는데, ip에 저장된 주소를 stack에 저장해서, 함수가 끝나면 해당 주소로 복귀한다.
+    ; ip 에 내가 실행하고 있는 위치를 저장해두고 있는데, ip에 저장된 주소를 stack에 저장해서[[이전 bp값], 함수가 끝나면 해당 주소로 복귀한다.
     
 
 section .data
