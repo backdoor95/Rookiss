@@ -39,4 +39,4 @@ x86/
 *.swo
 *.unsuccessful
 .vs/
-*.sin
+*.sln
