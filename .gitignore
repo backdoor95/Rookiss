@@ -38,4 +38,4 @@ x86/
 *.swp
 *.swo
 *.unsuccessful
-
+.vs/
