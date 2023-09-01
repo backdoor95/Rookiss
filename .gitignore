@@ -1,4 +1,4 @@
-# exe 파일 제외
+i# exe 파일 제외
 *.exe
 #C++ 프로젝트 ignore 목록
 # Ignore build output
@@ -39,3 +39,4 @@ x86/
 *.swo
 *.unsuccessful
 .vs/
+*.sin
