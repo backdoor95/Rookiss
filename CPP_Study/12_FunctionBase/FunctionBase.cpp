@@ -60,7 +60,7 @@ int main()
 
 	PrintNumber(2);
 
-	int result = MultiplyBy2(3);
+	//int result = MultiplyBy2(3);
 
 	int a = 3;
 	int b = 5;
