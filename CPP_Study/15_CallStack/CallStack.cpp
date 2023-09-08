@@ -29,7 +29,7 @@ int main()
 void Func1()
 {
 	cout << "Func1" << endl;
-	// push 2
+	// push 2 // 오른쪽 매개변수부터 stack에 push 한다.
 	// push 1
 	// call Func2 // 함수의 위치를 알지 못하면, 빌드 오류가 발생한다. 따라서 함수 선언을 먼저해야함.-> ctrl+shift + b를 하면 빌드 성공!
 	Func2(1, 2);

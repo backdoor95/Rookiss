@@ -3,7 +3,7 @@ using namespace std;
 
 // 디버깅
 // 
-// F5 - 한방에 실행
+// F5 - 한방에 실행, 다음 break point 까지 이동.
 
 // F10 - 프로시저(함수)단위 실행
 
