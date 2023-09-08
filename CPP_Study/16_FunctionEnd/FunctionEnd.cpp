@@ -13,11 +13,11 @@ int Add(int a, int b)
 	return result;
 }
 
-int Add(int a, int b=0)
-{
-	int result = a + b;
-	return result;
-}
+//int Add(int a, int b=0)
+//{
+//	int result = a + b;
+//	return result;
+//}
 
 
 int Add(int a)// 이렇게 빌드를 하면 모호하기 때문에 컴파일러가 에러를 낸다.
