@@ -41,7 +41,7 @@ void PrintInfoByCopy(StatInfo info)
 
 // 2) 주소 전달 방식
 // [매개변수][RET][지역변수(info)] [매개변수(&info)][RET][지역변수]
-void PrintInfoByPtr(StatInfo* info)
+void PrintInfo(StatInfo* info)
 {
 	cout << "-------------------------" << endl;
 	cout << "HP: " << info->hp << endl;
@@ -65,7 +65,7 @@ void PrintInfoByPtr(StatInfo* info)
 // 성능적으로 2번과 똑같다.
 // Low level 관점에서 포인터와 완전히 똑같이 동작을함. 그러나 사용하는 인터페이스 자체가 포인터랑 다르게 일반적인 복사랑 비슷하게 사용함.
 
-void PrintInfoByRef(StatInfo& info)
+void PrintInfo(StatInfo& info)
 {
 	cout << "-------------------------" << endl;
 	cout << "HP: " << info.hp << endl;
@@ -110,8 +110,8 @@ int main()
 	CreateMonster(&info);
 
 	PrintInfoByCopy(info);
-	PrintInfoByPtr(&info);
-	PrintInfoByRef(info);// 주소를 안넘겨줘도. 진퉁을 건드릴수있다. --> 내부적으로 알아서 주소값을 추출해서 사용하게될것이다.
+	PrintInfo(&info);
+	PrintInfo(info);// 주소를 안넘겨줘도. 진퉁을 건드릴수있다. --> 내부적으로 알아서 주소값을 추출해서 사용하게될것이다.
 
 
 
