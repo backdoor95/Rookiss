@@ -46,7 +46,7 @@ StatInfo globalInfo;
 	  void PrintInfo(const StatInfo* const info)
 
 */
-void PrintInfo(const StatInfo* const info)
+void PrintInfoByPtr(const StatInfo* const info)
 {
 	//항상 포인터를 nullptr 체크
 	if (info == nullptr)
@@ -91,7 +91,7 @@ void PrintInfo(const StatInfo* const info)
 }
 
 // 이름 바꾸기 단축키 : ctrl + R R
-void PrintInfo(const StatInfo& info)// 만약에 100% 확률로 info를 수정하지 않을거라는 확신이 있다면
+void PrintInfoByRef(const StatInfo& info)// 만약에 100% 확률로 info를 수정하지 않을거라는 확신이 있다면
 // const를 붙여주자. 어지간해서는 reference랑 const가 세트로 다니는 경우가 많다.
 {
 	cout << "-------------------------" << endl;
@@ -155,14 +155,14 @@ int main()
 	int a = NULL;// nullptr를 못넣음. 에러남.
 
 	pointer = &info;
-	PrintInfo(pointer);
-	PrintInfo(&info);
+	PrintInfoByPtr(pointer);
+	PrintInfoByPtr(&info);
 
 	//StatInfo& reference; // 에러가난다. reference는 무조건 참조를 하고 있어야함.
 	StatInfo& reference = info;
-	PrintInfo(reference);
+	PrintInfoByRef(reference);
 
-	PrintInfo(info);
+	PrintInfoByRef(info);
 
 	// 그래서 결론?
 	// 사실 Team By Team ... 정해진 답은 없다.
@@ -175,14 +175,29 @@ int main()
 	// - 바뀌지 않고 읽는 용도(readonly)만 사용하면 const ref&
 	// - 그 외 일반적으로 ref(명시적으로 호출할 때 OUT을 붙인다.)
 	// -- 단, 다른 사람이 pointer를 만들어놓은걸 이어서 만든다면, 계속 pointer (섞어 사용하진 않는다. ref로 바꾸지 않는다는 의미.)
+	// 참조를 사용하고 싶지만, 안에 있는 데이터를 수정해야되는 경우가 생기면
+	// OUT를 붙여주자. --> 가독성 차원에서 도움이 됨.
+	// 
 	ChangeInfo(OUT info);// 이렇게 하면 가독성 측면에서 이걸 더 주의깊게 확인할 수 있다.
 
 	// 보너스) 포인터로 사용하던걸 참조로 넘겨주려면?
-	PrintInfo(pointer);
+	// pointer[ 주소(&info) ]	ref, info[ 데이터 ]
+	PrintInfoByRef(*pointer);// 1번 방식
+
+	StatInfo& ref = *pointer;
+	PrintInfoByRef(ref);// 2번 방식 - 풀어서 쓴 방식.
+
 
 	// 보너스) 참조로 사용하던걸 포인터로 넘겨주려면?
+	// pointer[ 주소(&info) ]	reference, info[ 데이터 ]
+	PrintInfoByPtr(&reference); // 1번 방식.
 
+	StatInfo* ptr = &reference; //2번 방식 - 풀어서 쓴 방식.
+	PrintInfoByPtr(ptr);
 
+	// & 의 2가지 용도
+	//1. pointer = &info;// info의 주소를 꺼내줘 의미
+	//2. StatInfo& reference = info // 참조타입 의미.
 	return 0;
 
 }
