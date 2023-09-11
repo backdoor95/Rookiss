@@ -40,14 +40,15 @@ int main()
 
 
 	// .data 주소[H][e][l][l][o][ ][W][o][r][l][d][\0]  -- .data 영역에 저장됨. 정확히는 read only data(.rdata)
-	// [H][e][l][l][o][ ][W][o][r][l][d][\0] -- 4바이트씩 복사
-	// test2 = 주소
+	// [H][e][l][l][o][ ][W][o][r][l][d][\0]
+	// (test2 = 주소) 실제로는 배열이 만들어짐.
 	char test2[] = "Hello World";
 	test2[0] = 'R';
 
 	char test3[12];
 
 	//test3 = test2; -- 이거 에러남.
+	// 왜냐하면 배열의 주소는 변경할수 없다. 
 
 	/*
 	* 1 word = 2 byte = 16 bit
