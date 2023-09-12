@@ -81,10 +81,142 @@ char* StrCpy(char* dest, char* src)
 }
 
 // 문제3) 문자열 덧붙이는 함수
-char* StrCat(char* dest, char* src)
+// 내 풀이
+char* StrCatByMun(char* dest, char* src)
 {
+	char* ret = dest;
+
+	while (*dest)
+	{
+		dest++;
+	}
+
+	while (*src)
+	{
+		*dest++ = *src++;
+	}
+	*dest = '\0';
+
+	return ret;
 
 }
+// Rookiss 풀이
+char* StrCat(char* dest, char* src)
+{
+	// ver 1.0
+	// 
+	//int len = StrLen(dest);
+
+	//int i = 0;
+	//while (src[i] != '\0')
+	//{
+	//	dest[len + i] = src[i];
+	//	i++;
+	//}
+	//dest[len + i] = '\0';
+	//return dest;
+
+	// ver 2.0
+	char* ret = dest;
+	while (*dest != '\0')
+		dest++;
+
+	while (*src != '\0')// == *src
+	{
+		*dest = *src;
+		dest++;
+		src++;
+		// == (*dest++=*src++)
+	}
+	*dest = '\0';
+	return ret;
+}
+
+//문제 4) 문자열 비교하는 함수
+// 내 풀이
+int StrCmpByMun(char* dest, char* src)
+{
+
+	while ((*dest)&&(*src))
+	{
+		if (*dest == *src)
+		{
+			dest++;
+			src++;
+			continue;
+		}
+
+		if (*dest - *src > 0)
+		{
+			return 1;
+		}
+
+		if (*dest - *src < 0)
+		{
+			return -1;
+		}
+
+	}
+
+	if (*dest == '\0' && *src == '\0')
+		return 0;
+
+	return *dest - *src > 0 ? 1 : -1;
+}
+//Rookiss 풀이
+int StrCmp(char* a, char* b)
+{
+	int i = 0;
+	while (a[i] != '\0' || b[i] != '\0')
+	{
+		if (a[i] > b[i])
+			return 1;
+		if (a[i] < b[i])
+			return -1;
+		i++;
+	}
+	return 0;
+}
+
+// 문제 5 ) 문자열을 뒤집는 함수
+// 내 풀이
+void ReverseStrByMun(char* str)
+{
+	int index = 0;
+	int count = 0;
+	char temp;
+	while (str[index])
+	{
+		index++;
+	}
+	count = index;
+
+	// 1글자라면? --> 아무런 조치를 취하지 않아도됨.
+	// 2글자라면? --> [(count==2)/2 = 1 ]
+	// 3글자라면? --> [(count==3)/2 = 1 ]
+	for (int j = 0; j < count / 2; j++)
+	{
+		char temp = str[j];
+		str[j] = str[count - 1 - j];
+		str[count - 1 - j] = temp;
+	}
+
+}
+// Rookiss 풀이
+void ReverseStr(char* str)
+{
+	int len = StrLen(str);
+
+	for (int i = 0; i < len/2; i++)
+	{
+		int temp = str[i];
+		str[i] = str[len - 1 - i];
+		str[len - 1 - i] = temp;
+	}
+
+	return;
+}
+
 #pragma warning(disable: 4996)
 int main()
 {
@@ -122,7 +254,33 @@ int main()
 
 	char c[BUF_SIZE] = "World";
 
-	strcat(a,c);// cat은 concatenate : 연접시키다.
 
+	//strcat(a,c);// cat은 concatenate : 연접시키다.
+	StrCatByMun(a, c);
+	cout << a << endl;
+	StrCat(a, c);
+
+	// 내용을 비교
+	char d[BUF_SIZE] = "Hello";
+	//  a==d 이거는 주소를 비교하는것이다. 주의할것!
+	
+	int value = strcmp(a, d);// 순서와도 연동되어있다. 아스키 코드표에 따라서 비교함. [<0, 0, >0]
+	// a = "aaa", d="bbb" --> value = -1
+	// a = "bbb", d="aaa" --> value = +1
+	// 글자수가 다르면, '\0'과 비교를 한다.
+	cout << "strcmp 함수 결과값 : " << value << endl;
+
+	value = StrCmpByMun(a, d);
+	cout << "StrCmpByMun 함수 결과값 : " << value << endl;
+
+	value = StrCmp(a, d);
+	cout << "StrCmp 함수 결과값 : " << value << endl;
+
+	cout << "ORIGINAL a = " << a << endl;
+	ReverseStrByMun(a);
+	cout << "REVERSE a = " << a << endl;
+
+	ReverseStr(a);
+	cout << "Rookiss REVERSE a = " << a << endl;
 	return 0;
 }
