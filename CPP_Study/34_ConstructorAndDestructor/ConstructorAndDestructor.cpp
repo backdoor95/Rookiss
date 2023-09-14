@@ -42,8 +42,13 @@ public:
 		_posX = knight._posX;
 		_posY = knight._posY;
 	}
+	// 암시적인 복사 생성자(따로 복사 생성자를 안 만들었을때)는 모든 데이터를 복사를 한다. 
+	// 
 
 	// [3] 기본 생성자가 아닐때. = 기타 생성자
+	// 이 중에서 인자를 1개만 받는 [기타 생성자]를 
+	// [타입 변환 생성자]라고 부르기도 함. --> 이건 암시적으로 컴파일러가 해준다. 
+	// 명시적으로 해주기 위해서는 explicit 을 붙여줘야함.
 	Knight(int hp)// 생성자는 이렇게 오버로딩 할 수 있다.
 	{
 		cout << "Knight(int) 생성자 호출" << endl;
@@ -51,6 +56,25 @@ public:
 		_attack = 10;
 		_posY = 0;
 		_posX = 0;
+	}
+	
+	// 명시적으로 해주기 위해서는 explicit 을 붙여줘야함
+	//explicit Knight(int hp)// 생성자는 이렇게 오버로딩 할 수 있다.
+	//{
+	//	cout << "Knight(int) 생성자 호출" << endl;
+	//	_hp = hp;
+	//	_attack = 10;
+	//	_posY = 0;
+	//	_posX = 0;
+	//}
+
+
+	Knight(int hp, int attack, int posX, int posY)
+	{
+		_hp = hp;
+		_attack = attack;
+		_posX = posX;
+		_posY = posY;
 	}
 
 	// 소멸자 : 소멸자는 오직 1개만 존재
@@ -102,11 +126,18 @@ void Knight::Attack()
 	cout << "Attack : " << _attack << endl;
 }
 
+void HelloKnight(Knight k)
+{
+	cout << "Hello Knight" << endl;
+}
+
 
 // Instantiate = 객체를 만든다!
 int main()
 {
-	Knight k1;
+	//Knight k1;
+	//Knight k1(10);
+	//Knight k1(100, 10, 0, 0);
 
 	/*
 		Knight k1;
@@ -116,23 +147,58 @@ int main()
 	
 	*/
 
-	k1._hp = 100;
-	k1._attack = 10;
-	k1._posY = 0;
-	k1._posX = 0;
+	//k1._hp = 100;
+	//k1._attack = 10;
+	//k1._posY = 0;
+	//k1._posX = 0;
 
 	// k1의 sizeof(k1) = 16 --> 멤버변수만 데이터에 잡혀있다. , 멤버함수에 대한 메모리는 잡히지 않는다.
 
 
-	Knight k2(k1);// 이때 복사 생성자가 만들어진다.
+	//Knight k2(k1);//  (1) 이때 복사 생성자가 만들어진다.
+
+	//Knight k3 = k1;// (2)생성과 함과 동시에 복사 --> 복사 생성자로 만들어짐.
+
+	//Knight k4; // (3) 기본생성자로 만들어지고
+	//k4 = k1;// 복사, k1를 k4에 복사
 
 
 
+	//k1.Move(2, 2);
+	//k1.Attack();
+	//k1.Die();
 
 
-	k1.Move(2, 2);
-	k1.Attack();
-	k1.Die();
+	// 암시적 형변환 -> 컴파일러가 알아서 바꿔치기
+	int num = 1;
+
+	float f = (float)num;// 명시적 < 우리가 코드로 num을 float 바구니에 넣으라고 주문하고 있음
+	double d = num;// 암시적 << 별말 안했는데 컴파일러가 알아서 처리하고 있음.
+
+	// 타입 변환 생성자
+	cout << "타입 변환 생성자" << endl;
+	Knight k5; // 기본 생성자로 생성
+	k5 = 1;// 먼저  암시적으로 hp 파라매터에 '1'이 들어가서 기타 생성자가 호출됨.
+	// 1에 대한 Knight(int) 생성자가 호출이되고 k5에 값을 복사한뒤에
+	// 1에 대한 Knight(int)의 소멸자가 호출이된다.!!!!!!!!!!!!!!
+	// k5 = (Knight)1;// explicit을 붙였으면 명시적으로 자료형을 붙여서 타입변환생성자를 호출할 수 있다.
+
+	cout << "K5 hp = " << k5._hp << endl;
+	cout << "K5 attack = " << k5._attack << endl;
+	cout << "K5 posY = " << k5._posY << endl;
+	cout << "K5 posX = " << k5._posX << endl;
+	/*
+	* OUTPUT 
+K5 hp = 1
+K5 attack = 10
+K5 posY = 0
+K5 posX = 0
+	*/
+
+	HelloKnight(5);// 이게 왜 됨? ---> 그냥 컴파일러가 암시적으로 해주기 때문.
+	//HelloKnight((Knight)5);//
+	// explicit을 붙였으면 명시적으로 자료형을 붙여서 타입변환생성자를 호출할 수 있다.
+
 
 	return 0;
 	/*
