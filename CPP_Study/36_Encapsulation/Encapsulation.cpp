@@ -37,6 +37,9 @@ using namespace std;
 // - public : 공개적 상속? 부모님의 유산 설계 그대로~(public(부모) -> public(나) , protected(부모) -> protected(나))
 // - protected : 보호받은 상속? 내 자손들한테만 물려줄꺼야(public(부모) -> protected(나), protected(부모) -> protected(나))
 // - private: 개인적인 상속? 나까지만 잘 쓰고 자손들한테는 아에 안 물려줄꺼야~ (public(부모) -> private(나), protected(부모) -> private(나))
+// 주의 ! : (나) -> (자식)으로 이해하면 안됨.   정답 : (부모) -> (나) 이다.
+//	실무에서 대부분 public 만 사용한다.
+
 
 // 다른 언어에서는 상속 접근 지정자가 없는 경우가 있다.
 // 상속지정자에서 
