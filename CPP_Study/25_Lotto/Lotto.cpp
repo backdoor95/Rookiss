@@ -132,12 +132,12 @@ int main()
 	int b = 2;
 
 	// 내 풀이
-	SwapByRef(a, b);
-	cout << a << " " << b << endl;
+	//SwapByRef(a, b);
+	//cout << a << " " << b << endl;
 
-	a = 1; b = 2;
-	SwapByPointer(&a, &b);
-	cout << a << " " << b << endl;
+	//a = 1; b = 2;
+	//SwapByPointer(&a, &b);
+	//cout << a << " " << b << endl;
 
 	//output a=2, b=1
 
@@ -154,33 +154,33 @@ int main()
 	int size2 = sizeof(int);// 4
 
 	//Sort(numbers, 6);// sizeof(numbers)/sizeof(int) --- 배열의 인덱스 구하기
-	SortByMun(numbers, sizeof(numbers) / sizeof(int));
-	// 1,3, 5,6,15,42
-	for (int i = 0; i < sizeof(numbers) / sizeof(int); i++)
-	{
-		cout << numbers[i] << " ";
-	}
-	cout << endl;
+	//SortByMun(numbers, sizeof(numbers) / sizeof(int));
+	//// 1,3, 5,6,15,42
+	//for (int i = 0; i < sizeof(numbers) / sizeof(int); i++)
+	//{
+	//	cout << numbers[i] << " ";
+	//}
+	//cout << endl;
 
-	Sort(numbers, sizeof(numbers) / sizeof(int));
-	for (int i = 0; i < sizeof(numbers) / sizeof(int); i++)
-	{
-		cout << numbers[i] << " ";
-	}
-	cout << endl;
+	//Sort(numbers, sizeof(numbers) / sizeof(int));
+	//for (int i = 0; i < sizeof(numbers) / sizeof(int); i++)
+	//{
+	//	cout << numbers[i] << " ";
+	//}
+	//cout << endl;
 
 
 	// 3) 로또 번호 생성기
 
 	srand((unsigned)time(0)); // 랜덤 시드 설정
 
-	ChooseLotto1(numbers);// 내풀이
-	cout << "------------------로또 번호 생성기------------------"<<endl;
-	for (int i = 0; i < sizeof(numbers) / sizeof(int); i++)
-	{
-		cout << numbers[i] << " ";
-	}
-	cout << endl;
+	//ChooseLotto1(numbers);// 내풀이
+	//cout << "------------------로또 번호 생성기------------------"<<endl;
+	//for (int i = 0; i < sizeof(numbers) / sizeof(int); i++)
+	//{
+	//	cout << numbers[i] << " ";
+	//}
+	//cout << endl;
 
 	cout << "------------------로또 번호 생성기------------------" << endl;
 	for (int i = 0; i < 5; i++)
