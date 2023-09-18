@@ -57,6 +57,9 @@ public:
 	int _id;
 };
 
+// 정적 전역 객체
+static int s_global = 1;
+
 int GenerateId()
 {
 
