@@ -41,8 +41,33 @@ using namespace std;
 // - malloc (혹은 기타 calloc, realloc 등의 사촌)을 통해 할당된 영역을 해제
 // - 힙 관리자가 할당/미할당 여부를 구분해서 관리
 
+// new / delete
+// - c++에 추가됨.
+// - malloc/free:함수 || new/delete는 연산자(operator)
+
+// new[] / delete[]
+// - new가 malloc에 비해 좋긴 한데~ 배열과 같이 N개 데이터를 같이 할당할때
+
+// malloc/free VS new/delete
+// - 사용 편의성 -> new/delete 승!
+// - 타입에 상관없이 특정한 크기의 메모리 영역을 할당받으려면? -> malloc/free 승!
+
+// 그런데 둘의 가장 가장 근본적인 중요한 차이는 따로 있음!
+// new/delete는 (생성타입이 클래스일 경우) 생성자/소멸자를 호출해준다!!!
+
 class Monster
 {
+public:
+	Monster()
+	{
+		cout << "Monster()" << endl;
+	}
+
+	~Monster()
+	{
+		cout << "~Monster()" << endl;
+	}
+
 public:
 	int _hp;
 	int _x;
@@ -90,7 +115,7 @@ int main()
 	// 타고 가면 void 뭐가 있는지 모르겠으니까 너가 적당히 변환해서 사용해라 => ok
 	//void* pointer = malloc(1000);// 1000 바이트 할당!
 	
-	void* pointer = malloc(sizeof(Monster));// 1000 바이트 할당!
+	void* pointer = malloc(sizeof(Monster));// 1000 바이트 할당! ->> c, c++ 둘다 사용
 
 	Monster* m1 = (Monster*)pointer;
 	m1->_hp = 100;
@@ -129,16 +154,34 @@ CRT(C 런타임 라이브러리)의 힙 관리자가 정확히 12 바이트(Monster size)를 할당하지
 	//free(pointer);
 
 	// Use-After-Free
-	 	m1->_hp = 100;
-		m1->_x = 1;
-	    m1->_y = 2;
+	 //	m1->_hp = 100;
+		//m1->_x = 1;
+	 //   m1->_y = 2;
 	// 날라간 메모리를 건드릴수 있다.!!! 
 	// 바로 크래시가 나지않고, 어떤 중요한 정보를 담고있는 메모리를 건드릴경우
 	// 엄청난 문제!!!!
 	// - 프로그래머 입장 : OMG 망했다!
 
+	Monster* m2 = new Monster; // -> 기본
+	m2->_hp = 100;
+	m2->_x = 2;
+	m2->_y = 3;
 
+	delete m2;// new -> delete| new[] -> delete[] | malloc -> free  : 짝궁을 맞춰야함.
 
+	Monster*m3 = new Monster[5]; // 많이 쓰이지는 않음, 생성자가 5번 호출
+	m3->_hp = 100;
+	m3->_x = 2;
+	m3->_y = 3;
+
+	Monster* m4 = (m3 + 1);
+	m4->_hp = 300;
+	m4->_x = 4;
+	m4->_y = 5;
+
+	delete[] m3;// 소멸자를 5번 호출
+
+	// c++에서 문제가 발생하는 자주 발생하는 문제 -> delete를 안하거나, 2번 이상할때
 
 	return 0;
 }
