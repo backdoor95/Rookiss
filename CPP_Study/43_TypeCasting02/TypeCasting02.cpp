@@ -28,9 +28,17 @@ public:
 		cout << "Item(int itemType)" << endl;
 	}
 
-	~Item()
+	virtual ~Item()
 	{
 		cout << "~Item()" << endl;
+	}
+
+	// virtual를 붙이면 가상함수가 됨.
+	// 객체 자체에 가상함수 테이블이 만들어진다.
+	// 실행되어야할  함수가 어떤건지 따로 관리하게됨.
+	virtual void Test()
+	{
+		cout << "Test Item" << endl;
 	}
 
 public:
@@ -53,12 +61,19 @@ public:
 	Weapon() : Item(IT_WEAPON)
 	{
 		cout << "Weapon()" << endl;
+		_damage = rand() % 100;
 	}
 
-	~Weapon()
+	virtual ~Weapon()
 	{
 		cout << "~Weapon()" << endl;
 	}
+
+	virtual void Test()
+	{
+		cout << "Test Weapon" << endl;
+	}
+
 public:
 	int _damage = 0;
 };
@@ -71,7 +86,7 @@ public:
 		cout << "Armor()" << endl;
 	}
 
-	~Armor()
+	virtual ~Armor()
 	{
 		cout << "~Armor()" << endl;
 	}
@@ -81,14 +96,14 @@ public:
 	
 };
 
-void TestItem(Item item)
+void TestItem(Item item)// 복사 생성자를 호출한다. 그래서 이 함수가 끝날때 소멸자도 호출됨.
 {
 
 }
 
-void TestItemPtr(Item* item)
+void TestItemPtr(Item* item)// 포인터로 할때는 복사 생성자가 호출이 안됨!
 {
-
+	item->Test();
 }
 
 int main()
@@ -210,6 +225,9 @@ int main()
 		// 암시적으로도 된다!
 		Item* item = weapon;
 
+		TestItemPtr(item);
+		// 가상함수를 이용하면 원본타입의 함수를 호출할 수 있다.
+
 		delete weapon;
 	}
 
@@ -238,9 +256,70 @@ int main()
 	}
 
 
+	for (int i = 0; i < 20; i++)
+	{
+		Item* item = inventory[i];
+		if (item == nullptr)
+			continue;
 
+		if (item->_itemType == IT_WEAPON)
+		{
+			Weapon* weapon = (Weapon*)item;
+			cout << "Weapon Damage : " << weapon->_damage << endl;
+		}
+	}
 
+	// *********************************** 매우 매우 매우 중요 ****************************************
+	
 
+	//for (int i = 0; i < 20; i++)
+	//{
+	//	Item* item = inventory[i];
+	//	if (item == nullptr)
+	//		continue;
+
+	//	//delete item; // 원본을 지워야함.! 이것만 하면 item의 소멸자만 호출됨.!1
+
+	//	if (item->_itemType == IT_WEAPON)
+	//	{
+	//		Weapon* weapon = (Weapon*)item;
+	//		delete weapon;
+	//	}
+	//	else
+	//	{
+	//		Armor* armor = (Armor*)item;
+	//		delete armor;
+	//	}
+	//}
+
+	cout << "**************************************매우 매우 매우 중요*******************************************" << endl;
+
+	// 생성자&소멸자는 함수!!!****************
+	// 가상함수 적용이 가능!!!
+	// 소멸자에도 똑같은 룰 적용!!
+	// 어떤 상속 관계가 있을때, 무조건! 최상위 부모의 소멸자에 virtual 를 붙이자!!!
+	// 나머지 자식도 virtual를 붙이게 되는 셈이다.
+	// 소멸자 자체도 가상함수로 인식이 됨.
+	// 위에 처럼 캐스팅을 안해도됨!!
+
+	for (int i = 0; i < 20; i++)
+	{
+		Item* item = inventory[i];
+		if (item == nullptr)
+			continue;
+
+		delete item; // 가상함수를 적용하면 이렇게 해도됨.!!
+	}
+
+	// [결론]
+	// - 포인터 vs 일반 타입 : 차이를 이해하자
+	// - 포인터 사이의 타입 변환(캐스팅)을 할 때는 매우 매우 조심해야 한다!!
+	// - 부모-자식 관계에서 부모 클래스의 소멸자에는 까먹지 말고 virtual을 붙이자!!!
+	// 무조건 소멸자에는 virtual를 붙인다고 외우지 말자!! 이해를 하자
+	// 상속관계에 의해 함수를 재정의 해봤자
+	// 어떤 타입에 따라서 어떤 한 애만 골라서 실행이되기 때문에 
+	// virtual를 붙여주게 되면, 가상함수 테이블이 만들어지면서 실제 객체가 어떤 놈으로 만들졌냐에 따라서 함수를 찾아서 호출하게 된다.
+	// 면접 단골 질문이다!!!!
 
 	return 0;
 }
