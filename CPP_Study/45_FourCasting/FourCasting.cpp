@@ -73,7 +73,7 @@ int main()
 
 	Dog* dog1 = reinterpret_cast<Dog*>(k2);
 
-	void* p = malloc(1000);
+	void* p2 = malloc(1000);
 	// void* : 너가 어떤걸 쓸지 모르겠으니까 알아서 변환해서 사용하라는 의미. 실제로 주소를 타고 갔는데 아무것도 없다는 뜻이 아님.!!
 	Dog* dog2 = reinterpret_cast<Dog*>(p);
 	//Dog* dog2 = (Dog*)(p);
