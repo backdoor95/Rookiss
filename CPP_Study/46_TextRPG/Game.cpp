@@ -2,6 +2,7 @@
 #include<iostream>
 using namespace std;
 #include"Player.h"
+#include"Field.h"
 
 //using namespace Rookiss;
 //// 이름이 겹칠경우!
@@ -15,19 +16,22 @@ using namespace std;
 
 
 
-Game::Game() : _player(nullptr)
+Game::Game() : _player(nullptr), _field(nullptr)
 {
 	//Rookiss::Test();
 }
 
 Game::~Game()
 {
-
+	if (_player != nullptr)
+		delete _player;
+	if (_field != nullptr)
+		delete _field;
 }
 
 void Game::Init()
 {
-
+	_field = new Field();
 }
 
 void Game::Update()
@@ -37,6 +41,16 @@ void Game::Update()
 		CreatePlayer();
 	}
 
+	if (_player->IsDead())
+	{
+		delete _player;
+		_player = nullptr;
+		CreatePlayer();
+	}
+
+
+	_field->Update(_player);
+
 }
 
 void Game::CreatePlayer()
@@ -44,7 +58,7 @@ void Game::CreatePlayer()
 	while (_player == nullptr)
 	{
 		cout << "----------------------------" << endl;
-		cout << "캐릭터를 생성하게요!" << endl;
+		cout << "캐릭터를 생성하세요!" << endl;
 		cout << "1)기사 2)궁수 3)법사" << endl;
 		cout << "----------------------------" << endl;
 
