@@ -38,6 +38,21 @@ int main()
 				// 이런 저런 펫 정보 추가될 예정
 				//Pet pet;// 수정 전
 
+				/*
+				디버그 모드에서 일부러 고정 쓰레기값을 넣어서
+				CCCC가 바뀌면, 그것을 오버플로우로 인식해서 크래시를 냅니다.
+				예시)
+				CCCCCCCC
+				CCCCCCCC
+				CCCCCCCC
+				CCCCCCCC
+				CCCCCCCC
+				CCCCCCCC
+				
+				
+				
+				*/
+
 				// 내 풀이: pet의 생명주기가 case 1: {~~~~} 이기 때문에
 				// delete할때 엉뚱한 곳을 지우게 된다.
 
