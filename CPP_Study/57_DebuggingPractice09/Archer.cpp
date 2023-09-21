@@ -25,7 +25,7 @@ void Archer::AddHp(int value)
 	if (IsDead())
 	{
 		delete _pet;
-		_pet = nullptr;// nullptr 추가
+		_pet = nullptr;// nullptr 추가, 이렇게 사용하지 않을 메모리는 nullptr로 밀어주는 습관을 가지자
 		// _pet [0x100]  -> 0x100 [			](delete는 이 부분을 날리는거임)
 		// _pet[nullptr] 로 해줘야함.
 	}
