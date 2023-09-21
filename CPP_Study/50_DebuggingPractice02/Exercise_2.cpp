@@ -19,7 +19,7 @@ int main()
 		knights[i] = new Knight();
 	}
 
-	for (int i = 0; i < KNIGHT_COUNT; i++)// [ i<=KNIGHT_COUNT ]
+	for (int i = 0; i < KNIGHT_COUNT; i++)// [ i<=KNIGHT_COUNT ]--> 배열의 범위를 벗어남.! 유효하지 않은 메모리를 건드렸기 때문에 크래시 발생.
 	{
 		cout << "기사 " << i + 1 << " 번" << endl;
 		knights[i]->PrintInfo();
