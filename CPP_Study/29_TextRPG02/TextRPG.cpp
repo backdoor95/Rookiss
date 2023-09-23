@@ -38,7 +38,7 @@ void CreateMonsters(StatInfo monsterInfo[], int count);
 bool EnterBattle(StatInfo* playerInfo, StatInfo* monsterInfo);
 int main()
 {
-	srand((unsigned)time(nullptr));
+	srand((unsigned int)time(nullptr));
 	EnterLobby();
 
 
