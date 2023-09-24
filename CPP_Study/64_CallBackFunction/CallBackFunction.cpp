@@ -58,7 +58,7 @@ Item* FindItem(Item items[], int itemCount, T selector)
 {
 	for (int i = 0; i < itemCount; i++)
 	{
-		Item* item = &item[i];
+		Item* item = &items[i];
 		// TODO : 조건 체크
 		if (selector(item))
 			return item;

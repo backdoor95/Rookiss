@@ -153,13 +153,13 @@ int main()
 	// [2] 상속 관계 클래스의 참조 타입 변환
 	// 특징) 자식 -> 부모 ok	/	부모-> 자식(암시적 no) (명시적 ok)
 	{
-		Dog dog;
+		//Dog dog;
 
 		//BullDog& bulldog = dog; - 통과 x
 		//BullDog& bulldog = (BullDog&)dog;  // - 통과 o
 
 		BullDog bulldog;
-		Dog& dog = bulldog;
+		Dog& dog = static_cast<BullDog&>(bulldog);
 
 	}
 	
