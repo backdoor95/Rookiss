@@ -6,6 +6,8 @@ using namespace std;
 
 int main()
 {
+
+	/// 면접에서 엄청 자주 나옴.!!
 	//컨테이너 (Container) : 데이터를 저장하는 객체(자료구조 Data Structure)
 	// vector(동적 배열)
 	// - vector의 동작원리(size/capacity)
@@ -17,6 +19,8 @@ int main()
 	// 컨테이너 마다 반복자를 들고있다.
 	// 반복자(iterator) : 포인터와 유사한 개념. 컨테이너의 원소(데이터)를 가리키고, 다음/이전 원소로 이동 가능
 	vector<int> v(10);//size 10개
+
+	v.reserve(1000);// capacity 1000 예약
 
 	for (int i = 0; i < v.size(); i++) // 여기서 경고가 뜸!
 	{
@@ -119,6 +123,64 @@ int main()
 		cout << *it << endl;
 	}
 
+	//  ---- Vector 03 Start----
+	// - 중간 삽입/ 삭제 (BAD) 성능이 나쁨.
+	// - 처음/끝 삽입/삭제
+	// - 임의 접근(Random Access)
+
+	// vector = 동적 배열 = 동적으로 커지는 배열 = 배열
+	// 원소가 하나의 메모리 블로게 연속하게 저장된다!!
+
+
+	// 1. [-중간 삽입 / 삭제(BAD) 성능이 나쁨.]---> 비효율적으로 동작
+	// [							]
+	// [0] [1] [2] [3] [4] [] []
+	// [0] [1] [] [2] [3] [4] []// 해당 원소를 채우기 위해서 많은 원소가 움직여야함.
+	// [0] [1] [5] [2] [3] [4] []
+
+
+	// 2. [- 처음/끝 삽입/삭제]
+	//  1) 처음 삽입/삭제하는건 BAD
+	//  2) 끝에 삽입/삭제하는건 GOOD
+	//v.push_back(1);
+	//v.pop_back();// v.push_front 는 없다!!! 비효율적이기 때문
+
+
+	// 3. [ - 임의 접근]
+	v[2] = 3;
+	// List 나 다른 컨테이너들은 이런 임의접근이 불가능하다.
+
+	// 2번째에 5 삽입하고, 2번째 이터레이터 반환
+	vector<int>::iterator insertIt = v.insert(v.begin()+2, 5	);// 2번째에 5를 넣어라 그리고 원래 2번쨰 있던 원소 이후로 한칸씩 뒤로 밀려남.
+	
+	// 삭제한 위치를 반환
+	vector<int>::iterator eraseIt1 = v.erase(v.begin() + 2);
+	
+	// 삭제한 위치를 반환
+	vector<int>::iterator eraseIt2 = v.erase(v.begin() + 2, v.begin() + 4);// v.begin() + 4 이거는 포함되지 않는다.!!!
+
+	// 만약에 다른것이 capacity가 다 차면 기존에 쓰던 메모리 구역을 날려버리고(dddddddd, dddddddd, ..._ 이런식으로 없애버림)
+	// 메모리를 새로 생성하고 거기에 복사한다.
+
+	// 쭉~ 스캔을 하면서, 3이라는 데이터가 있으면 일괄 삭제하고 싶다.
+	// 현업 개발자도 하는 실수!!!
+	for (vector<int>::iterator it = v.begin(); it < v.end();)// ++it 를 빼고, else 문에 넣어줌.
+	{
+		int data = *it;
+		if (data == 3)
+		{
+			//v.erase(it);// 이터레이터는 erase하는 순간 유효하지 않음. it의 Myprocy 가 null 로 바뀌기 때문에 ++it 할때, crash가 일어남.
+			//break;// 1. break를 해서 빠져나오거나
+			it = v.erase(it);// 이렇게 되면 Myproxy가 null 이 아니다.!!
+		}
+		else
+		{
+			++it;
+		}
+
+	}
+
+	// v.clear() 하면 나와야함. break로 
 
 	return 0;
 }
