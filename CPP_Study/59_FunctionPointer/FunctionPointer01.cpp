@@ -143,6 +143,7 @@ int main()
 	DATA* pointer = &a;
 
 	
+	
 
 	// ÇÔ¼ö
 	typedef int(FUNC_TYPE2)(int);

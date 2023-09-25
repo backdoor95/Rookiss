@@ -199,6 +199,7 @@ K5 posX = 0
 	//HelloKnight((Knight)5);//
 	// explicit을 붙였으면 명시적으로 자료형을 붙여서 타입변환생성자를 호출할 수 있다.
 
+	Knight knightTest = Knight(4);
 
 	return 0;
 	/*
