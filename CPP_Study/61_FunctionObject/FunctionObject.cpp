@@ -37,7 +37,7 @@ public:
 
 	bool operator() (int num)
 	{
-		cout << "Functor Test" << endl;
+		cout << "Functor operator() (int num) Test" << endl;
 		_value += num;
 		cout << _value << endl;
 		return true;
