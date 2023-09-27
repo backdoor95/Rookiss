@@ -19,16 +19,20 @@ public:
 
 	}
 
-	// 타입 변환 생성자
+	// 타입 변환 생성자 ---> 복사 생성자와 구분할것!
 	Dog(const Knight& knight)
 	{
 		_age = knight._hp;
 	}
 
 	// 타입 변환 연산자 - return type이 없음
-	operator Knight()
+	operator Knight()// Dog를 Knight로 변환
 	{
-		return (Knight)(*this);
+		Knight knight;
+		knight = (Knight)(*this);
+		return knight;
+
+
 	}
 
 public:
@@ -63,7 +67,7 @@ int main()
 	// 거의 쓸일은 없지만, 포인터 타입 변환도 '참조 타입 변환' 동일한 룰을 따르니까 일석이조로 공부하자!
 
 		int a = 123456789;// 2의 보수  
-		float b = (float)a;// 부동소수점(지수+유효숫자)  
+		float b = (float&)a;// 부동소수점(지수+유효숫자)  
 		cout << b << endl;
 	}
 
@@ -118,8 +122,8 @@ int main()
 		// 타입 변환 생성자
 		Knight knight;
 		Dog dog = (Dog)knight;
-
-		Knight knight2 = dog;// 타입 변환 연산자
+		Dog dog2;
+		Knight knight2 = dog2;// 타입 변환 연산자
 	}
 
 	// [2] 연관없는 클래스 사이의 참조 타입 변환
