@@ -127,7 +127,7 @@ int main()
 	Knight* k;
 	unique_ptr<Knight> uptr = make_unique<Knight>();
 	//unique_ptr<Knight> uptr2 = uptr;// 오류가 발생하는 이유는 복사자체를 허용하지않아서임.
-	unique_ptr<Knight> uptr2 = move(uptr);// 오른값 참조로 캐스팅함.! uptr2가 모든 권한을 위임받음.
+	unique_ptr<Knight> uptr2 = move(uptr);// 오른값 참조로 캐스팅함.! uptr2가 모든 권한을 위임받음. uptr은 소멸됨.
 
 
 
