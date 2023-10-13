@@ -57,9 +57,38 @@ int main()
 			}
 		};
 
-		//[](){} : [] -> 익명함수, () -> 인자, {} -> 중괄호
+		//[](){} : [] -> 익명함수, () -> 인자, {} -> 중괄호(구현부가 들어감)
 
 		auto isUniqueLamda = [](Item& item) {return item._rarity == Rarity::Unique; };// 람다 표현식( lamda expression)
+		//auto isUniqueLamda = [](Item& item) -> int {return item._rarity == Rarity::Unique; };// int를 반환함. 근데 대부분 위에 방식으로함.
+
+		auto findIt = find_if(v.begin(), v.end(), isUniqueLamda);
+
+		auto findIt2 = find_if(v.begin(), v.end(),
+			[](Item& item) {return item._rarity == Rarity::Unique; });
+
+		if (findIt != v.end())
+			cout << "아이템ID: " << findIt->_itemId << endl;
+
+
+	}
+
+	{
+		struct IsUniqueItem
+		{
+			bool operator()(Item& item)
+			{
+				return item._rarity == Rarity::Unique;
+			}
+		};
+
+		//[](){} : [] -> 익명함수, () -> 인자, {} -> 중괄호(구현부가 들어감)
+
+		// 클로저(closure) = 람다에 의해 만들어진 실행시점 객체
+		auto isUniqueLamda = [](Item& item)
+		{
+			return item._rarity == Rarity::Unique; 
+		};// 람다 표현식( lamda expression)
 		//auto isUniqueLamda = [](Item& item) -> int {return item._rarity == Rarity::Unique; };// int를 반환함. 근데 대부분 위에 방식으로함.
 
 		auto findIt = find_if(v.begin(), v.end(), isUniqueLamda);
@@ -94,7 +123,10 @@ int main()
 
 		// [ ] 캡처(capture) : 함수 객체 내부에 변수를 저장하는 개념과 유사
 		// 사진을 찰칵 [캡처]하듯.. 일종의 스냅샷을 찍는다고 이해
-		// 기본 캡처 모드 : 값(복사) 방식 (=) || 참조 방식 (&)
+		// 기본 캡처 모드 : 1.값(복사) 방식 (=) || 2. 참조 방식 (&)
+		// 
+		//auto findByItemIdLamda = [](Item& item) { return item._itemId == itemId; }; 이때 itemId 부분에 빨간줄이 나옴. [C++ 바깥쪽 함수의 지역 변수는 캡처 목록에 있지 않는 한 람다 본문에서 참조할 수 없습니다.]
+		// 
 		//auto findByItemIdLamda = [=](Item& item) { return item._itemId == itemId; };// 복사 방식
 		auto findByItemIdLamda = [&](Item& item) { return item._itemId == itemId; };// 참조 방식 ===> 참조 값을 저장한다.
 
