@@ -74,7 +74,7 @@ T Add(T a, T b)
 	return a + b;
 }
 
-// 연산자 오버로딩( 전역함수 버전)
+ //연산자 오버로딩( 전역함수 버전)
 ostream& operator <<(ostream& os, const Knight& k) // out-stream
 {
 	os << k._hp;
