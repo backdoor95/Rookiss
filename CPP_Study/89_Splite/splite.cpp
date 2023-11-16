@@ -21,4 +21,20 @@ int main()
 	vector<string> a = split(s, d);
 	for (string b : a)cout << b << endl;
 
+	cout << "_____________________" << endl;
+	int oa = 421;
+	int* p = &oa;
+
+
+	cout << " *p = "<< * p << endl;
+	cout << " oa = "<< oa << endl;
+
+	oa = 10000;
+
+	cout << " *p = "<< * p << endl;
+	cout << " oa = "<< oa << endl;
+
+	*p = 22222222;
+	cout << " *p = " << *p << endl;
+	cout << " oa = " << oa << endl;
 }
